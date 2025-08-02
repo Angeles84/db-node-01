@@ -70,11 +70,13 @@ app.delete("/posts/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const result = await model.eliminarPost(id)
+
     if (result.rowCount === 0) {
       return res.status(404).json({message: "Post no encontrado"});
     }
     res.status(200).json({message: 'Post eliminado correctamente'});
     return res.json(result.rows[0]);
+    
   } catch (error) {
     console.error("Error al eliminar post:", error);
     return res.status(500).json({ message: "Error interno en el servidor" });
